@@ -14,3 +14,7 @@ A simple script to transparently edit a local file (filesystem) in Obsidian. Whe
 ## Usage
 1. From command line: `obsidedit myfile.md`
 2. From nautilus: right click on `myfile.md`, go under Scripts and select obsieditnaut
+
+## Aks
+1. my visionary genius for the overall vision and top-down management
+2. https://chatgpt.com/c/682af348-815c-800c-8645-1d9b838f0b7e
