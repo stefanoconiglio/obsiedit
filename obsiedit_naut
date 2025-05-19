@@ -1,5 +1,5 @@
 #!/bin/bash
 for FILE in "$@"; do
-  PATH=""
-  gnome-terminal -- bash -c $PATH"/obsiedit \"$FILE\"; echo; read -p 'Press ENTER to close...'"
+  FILEPATH=""
+  gnome-terminal -- bash -c $FILEPATH"/obsiedit \"$FILE\"; echo; read -p 'Press ENTER to close...'"
 done
