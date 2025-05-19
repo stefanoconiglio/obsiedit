@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# === CONFIGURATION ===
+VAULT_NAME=""
+VAULT_PATH=""
+VAULT_SUBDIR="external_files"
+
+# === INPUT CHECK ===
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 /path/to/file.md"
+    exit 1
+fi
+
+ORIG_PATH="$(realpath "$1")"
+FILENAME="$(basename "$ORIG_PATH")"
+DEST_DIR="$VAULT_PATH/$VAULT_SUBDIR"
+DEST_PATH="$DEST_DIR/$FILENAME"
+
+# === COPY TO VAULT ===
+mkdir -p "$DEST_DIR"
+cp "$ORIG_PATH" "$DEST_PATH"
+
+# === OPEN IN OBSIDIAN ===
+RELATIVE_PATH="$VAULT_SUBDIR/$FILENAME"
+ENCODED_PATH=$(python3 -c "import urllib.parse; print(urllib.parse.quote('''$RELATIVE_PATH'''))")
+xdg-open "obsidian://open?vault=$VAULT_NAME&file=$ENCODED_PATH"
+
+# === WAIT FOR USER TO CONFIRM ===
+read -p "📂 Press ENTER when you're done editing in Obsidian to sync back and delete..."
+
+# === SYNC BACK AND CLEAN UP ===
+cp "$DEST_PATH" "$ORIG_PATH"
+rm "$DEST_PATH"
+echo "✅ Synced back and deleted: $DEST_PATH"
+
